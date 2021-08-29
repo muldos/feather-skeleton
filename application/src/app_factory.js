@@ -2,13 +2,15 @@ const express = require("@feathersjs/express");
 
 module.exports.getApp = function (app) {
   const hostingType = process.env.HOSTING_TYPE || "container";
+  const prefix = process.env.API_PREFIX || "";
   let mainApp = null;
   if (hostingType === "container") {
     mainApp = app;
   }
   if (hostingType === "cloud") {
-    mainApp = express().use("/prefix", app);
+    mainApp = express().use("/" + prefix, app);
   }
   app.set("hostingType", hostingType);
+  app.set("api_prefix", prefix);
   return mainApp;
 };
