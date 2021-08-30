@@ -1,9 +1,10 @@
 const Sequelize = require("sequelize");
-
+const mysql2 = require("mysql2");
 module.exports = function (app) {
   const connectionString = app.get("mysql");
   const sequelize = new Sequelize(connectionString, {
     dialect: "mysql",
+    dialectModule: mysql2,
     logging: false,
     define: {
       freezeTableName: true,

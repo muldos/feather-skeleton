@@ -26,7 +26,8 @@
   "scripts": {
     "test": "npm run lint && npm run mocha",
     "lint": "eslint src/. test/. --config .eslintrc.json --fix",
-    "build": "webpack --config build/webpack.prod.conf.js",
+    "buildapp": "webpack --config build/webpack.prod-app.conf.js",
+    "buildfn": "webpack --config build/webpack.prod-lambda.conf.js",
     "dev": "nodemon src/",
     "start": "node src/",
     "mocha": "mocha test/ --recursive --exit"

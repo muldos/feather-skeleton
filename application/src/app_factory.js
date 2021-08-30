@@ -10,7 +10,6 @@ module.exports.getApp = function (app) {
   if (hostingType === "cloud") {
     mainApp = express().use("/" + prefix, app);
   }
-  app.set("hostingType", hostingType);
-  app.set("api_prefix", prefix);
+
   return mainApp;
 };

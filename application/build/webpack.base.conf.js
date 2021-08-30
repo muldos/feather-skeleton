@@ -1,15 +1,15 @@
-const resolve = require("path").resolve;
-
 module.exports = {
   target: "node14",
   node: {
     __dirname: false,
     __filename: false,
   },
-  entry: ["./lambda.js"],
-  output: {
-    filename: "lambda.js",
-    library: { name: "handler", type: "commonjs" },
-    path: resolve(__dirname, "./../dist/"),
-  },
+  externals: [
+    "pg",
+    "sqlite3",
+    "tedious",
+    "mariadb",
+    "pg-hstore",
+    "cardinal", //remove warning and errors around sequelize and mysql2 optionnal deps
+  ],
 };

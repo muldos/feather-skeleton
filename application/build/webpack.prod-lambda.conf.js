@@ -3,7 +3,8 @@ const webpack = require("webpack");
 const resolve = require("path").resolve;
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
-base.mode = "development";
+base.mode = "production";
+
 base.plugins = [
   new webpack.ContextReplacementPlugin(
     /express\/lib/,
@@ -15,14 +16,18 @@ base.plugins = [
   new CopyWebpackPlugin({
     patterns: [
       { from: "./config", to: resolve(__dirname, "./../dist/config") },
-      { from: "./lambda.js", to: resolve(__dirname, "./../dist/lambda.js") },
     ],
   }),
 ];
 base.stats = {
   warningsFilter: /require\.extensions/,
 };
-
+base.entry = ["./lambda.js"];
+base.output = {
+  filename: "lambda.js",
+  library: { name: "handler", type: "commonjs" },
+  path: resolve(__dirname, "./../dist"),
+};
 base.optimization = {
   usedExports: true,
 };
