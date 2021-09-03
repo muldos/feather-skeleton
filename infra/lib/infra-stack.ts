@@ -11,6 +11,9 @@ export class FeatherNodeStack extends cdk.Stack {
       code: lambda.Code.fromAsset(
         path.join(__dirname, "../../application/lambda.zip")
       ),
+      environment: {
+        API_PREFIX: "api",
+      },
       handler: "lambda.handler",
       runtime: lambda.Runtime.NODEJS_14_X,
     });

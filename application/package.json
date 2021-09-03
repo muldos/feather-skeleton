@@ -30,6 +30,7 @@
     "buildfn": "webpack --config build/webpack.prod-lambda.conf.js",
     "dev": "nodemon src/",
     "start": "node src/",
+    "startbundle": "set NODE_ENV=devbundle&node distapp/src",
     "mocha": "mocha test/ --recursive --exit"
   },
   "standard": {
@@ -62,6 +63,7 @@
     "axios": "^0.21.1",
     "copy-webpack-plugin": "^9.0.1",
     "eslint": "^7.32.0",
+    "filemanager-webpack-plugin": "^6.1.6",
     "mocha": "^8.4.0",
     "nodemon": "^2.0.12",
     "webpack": "^5.51.1",

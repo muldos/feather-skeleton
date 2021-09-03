@@ -1,7 +1,7 @@
-//const favicon = require("serve-favicon");
+const favicon = require("serve-favicon");
 const compress = require("compression");
 const helmet = require("helmet");
-//const path = require("path");
+const path = require("path");
 const cors = require("cors");
 const logger = require("./logger");
 
@@ -16,7 +16,7 @@ const services = require("./services");
 const appHooks = require("./app.hooks");
 const channels = require("./channels");
 
-const sequelize = require("./sequelize");
+//const sequelize = require("./sequelize");
 const app = express(feathers());
 
 // Load app configuration
@@ -35,20 +35,26 @@ app.use(express.urlencoded({ extended: true }));
 
 const hostingType = process.env.HOSTING_TYPE || "container";
 const prefix = process.env.API_PREFIX || "";
+const uriPrefix = prefix !== "" ? "/" + prefix : "";
 app.set("hostingType", hostingType);
-app.set("api_prefix", "/" + prefix);
-//app.use(favicon(path.join(app.get("public"), "favicon.ico")));
+app.set("api_prefix", uriPrefix);
+console.log("== init logs ===");
+console.log(app.get("api_prefix"));
+console.log(app.get("public"));
+console.log(__dirname);
+app.use(favicon(path.join(app.get("public"), "favicon.ico")));
 // Host the public folder
-//app.use("/", express.static(app.get("public")));
+app.use("/", express.static(app.get("public")));
 
 // Set up Plugins and providers
 app.configure(express.rest());
 
-app.configure(sequelize);
+//app.configure(sequelize);
 
 // Configure other middleware (see `middleware/index.js`)
 app.configure(middleware);
 // swagger plugin set up
+console.log(uriPrefix + "/docs");
 app.configure(
   swagger({
     specs: {
@@ -63,7 +69,8 @@ app.configure(
     openApiVersion: 2,
 
     docsPath: "/docs",
-    //path.join(__dirname, "..", "public", "swagger", "index.html"),
+    docsJsonPath: "/docs/swagger.json",
+    uiIndex: path.join(app.get("public"), "swagger", "index.html"),
   })
 );
 // Set up our services (see `services/index.js`)

@@ -16,6 +16,7 @@ base.plugins = [
   new CopyWebpackPlugin({
     patterns: [
       { from: "./config", to: resolve(__dirname, "./../distapp/config") },
+      { from: "./public", to: resolve(__dirname, "./../distapp/public") },
     ],
   }),
 ];

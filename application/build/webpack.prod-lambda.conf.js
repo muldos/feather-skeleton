@@ -3,7 +3,7 @@ const webpack = require("webpack");
 const resolve = require("path").resolve;
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
-base.mode = "production";
+base.mode = "development";
 
 base.plugins = [
   new webpack.ContextReplacementPlugin(
@@ -16,6 +16,7 @@ base.plugins = [
   new CopyWebpackPlugin({
     patterns: [
       { from: "./config", to: resolve(__dirname, "./../dist/config") },
+      { from: "./public", to: resolve(__dirname, "./../dist/public") },
     ],
   }),
 ];
